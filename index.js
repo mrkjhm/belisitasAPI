@@ -19,7 +19,17 @@ const port = 4000;
 // middleware
 app.use(express.json())
 app.use(express.urlencoded({extended:true}));
-app.use(cors())
+
+const corsOptions = {
+    origin: [
+        "*",
+        "https://belisitas.vercel.app/"
+        ],
+    credentials: true,
+    optionsSuccessStatus: 200
+}
+
+app.use(cors(corsOptions));
 
 // DB Connection
 connectDB()
