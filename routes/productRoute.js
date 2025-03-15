@@ -7,12 +7,7 @@ import { verifyAdmin, verifyToken } from "../middleware/auth.js";
 const productRouter = express.Router()
 
 // Image Storage Engine
-const storage = multer.diskStorage({
-    destination: "uploads",
-    filename:(req,file,cb) => {
-        return cb(null,`${Date.now()}_${file.originalname}`);
-    }
-})
+const storage = multer.memoryStorage()
 
 const upload = multer({ storage:storage })
 
