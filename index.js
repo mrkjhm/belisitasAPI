@@ -7,12 +7,11 @@ import { connectDB } from './config/db.js'
 import productRouter from './routes/productRoute.js';
 import userRouter from "./routes/userRoute.js";
 import "dotenv/config"
-import dotenv from "dotenv";
+
+// import dotenv from "dotenv";
+// dotenv.config();
 
 
-
-
-dotenv.config();
 // app config
 const app = express();
 const port = 4000;
