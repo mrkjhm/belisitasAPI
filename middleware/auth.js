@@ -47,17 +47,38 @@ const verifyAdmin = (req, res, next) => {
             message: "Access denied. No user data found"
         })
     }
-
     if(!req.user.isAdmin) {
         return res.status(403).json({
             auth: "false",
             message: "Access denied. Admins only."
         })
     }
-
     next();
-    
-    
 }
 
-export { createAccessToken, verifyToken, verifyAdmin };
+const errorHandler = (error, req, res, next) => {
+
+    console.log(error);
+
+    const statusCode = error.status || 500;
+    const errorMessage = error.message || 'Internal Server Error';
+
+    res.status(statusCode).json({
+        error: {
+            message: errorMessage,
+            errorCode: error.code || 'SERVER_ERROR',
+            details: error.details || null
+        }
+    })
+}
+
+const isLoggedIn = (req, res, next) => {
+    if (req.user) {
+        next();
+    } else {
+        res.sendStatus(401)
+    }
+}
+
+
+export { createAccessToken, verifyToken, verifyAdmin, errorHandler };
